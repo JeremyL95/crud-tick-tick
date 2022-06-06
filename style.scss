@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap");
+
+@mixin flexCenter($display, $justify, $align, $direction) {
+    display: $display;
+    justify-content: $justify;
+    align-items: $align;
+    flex-direction: $direction;
+}
+
+$primaryColor: #1db954;
+$secondaryColor: #fff;
+$borderColor: #ccc;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "montserrat", sans-serif;
+}
+
+body {
+    @include flexCenter(flex, center, center, column);
+    background-color: $primaryColor;
+    height: 100vh;
+}
+
+.wrapper {
+    background-color: $secondaryColor;
+    max-width: 420px;
+    border-radius: 5px;
+
+    .task-input {
+        padding: 1em 1em 0;
+
+        input {
+            width: 100%;
+            padding: 1em;
+            outline: none;
+            border: 1px solid $borderColor;
+
+            &:focus {
+                border-color: $primaryColor;
+            }
+
+            &::placeholder {
+                color: rgba($borderColor, 0.85);
+            }
+        }
+    }
+
+    .controls {
+        @include flexCenter(flex, space-between, center, row);
+        padding: 1em;
+        border-bottom: 1px solid $borderColor;
+
+        .filters span {
+            cursor: pointer;
+            margin-inline: 0.5em;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &.active {
+                color: $primaryColor;
+            }
+        }
+
+        .btn-clear {
+            padding: 0.5em 1em;
+            outline: none;
+            border: none;
+            color: $secondaryColor;
+            background-color: $primaryColor;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: darken($primaryColor, 10%);
+            }
+        }
+    }
+
+    .task-container {
+        margin: 1.25em 1.5em;
+
+        .task {
+            list-style-type: none;
+            @include flexCenter(flex, space-between, center, row);
+            margin-bottom: 1em;
+            padding-bottom: 1em;
+            border-bottom: 1px solid $borderColor;
+
+            &:last-child {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border: none;
+            }
+
+            label {
+                display: flex;
+                position: relative;
+
+                input {
+                    margin-top: 0.3em;
+                    margin-right: 1em;
+                    accent-color: green;
+                }
+
+                p.checked {
+                    text-decoration: line-through;
+                }
+            }
+
+            .settings {
+                cursor: pointer;
+                position: relative;
+
+                .menu {
+                    width: 120px;
+                    position: absolute;
+                    background-color: $secondaryColor;
+                    box-shadow: 0 0 6px rgba(black, 0.15);
+                    right: 0;
+                    bottom: 0;
+                    transform: scale(0);
+                    transition: transform 0.25s ease;
+                    transform-origin: bottom right;
+                    z-index: 99;
+
+                    &.show {
+                        transform: scale(1);
+                    }
+
+                    li {
+                        padding: 0.5em 0.9em;
+                        list-style: none;
+
+                        i {
+                            padding-right: 1em;
+                        }
+
+                        &:hover {
+                            background-color: $primaryColor;
+                            color: $secondaryColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
